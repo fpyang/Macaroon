@@ -147,17 +147,6 @@ class BoxList extends Component {
       borderRadius: '50%',
       position: 'absolute'
     };
-  let question = {};
-
-  axios.get('http://localhost:5000/question/234')
-    .then(function (response) {
-      console.log('backend response: ');
-      question = response.data.results;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
 
     return (
       <div>
@@ -184,7 +173,7 @@ function cueBoxInvisible(cssStyle, onOff){
 
   const cloneStyle = Object.assign({}, cssStyle);
   if(onOff){
-    cloneStyle.color = 'rgba(255,0,0,0)'; 
+    cloneStyle.color = 'rgba(255,0,0,0)';
     cloneStyle.width = '0';
     cloneStyle.height = '0';
   }
