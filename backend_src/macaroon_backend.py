@@ -24,18 +24,26 @@ def question(qid):
     #TODO: return single question spec here
 
     question = {}
-    spec = [
-        {'invisible': True, 'val': 2},
-        {'invisible': False, 'val': 10},
-        {'invisible': False, 'val': 54},
-        {'invisible': False, 'val': 1},
-        {'invisible': False, 'val': 3},
-        {'invisible': False, 'val': 12}
-        ]
+    spec = { 'macaroon' :
+                        [
+                            {'invisible': True, 'val': 2},
+                            {'invisible': False, 'val': 10},
+                            {'invisible': False, 'val': 54},
+                            {'invisible': False, 'val': 1},
+                            {'invisible': False, 'val': 3},
+                            {'invisible': False, 'val': 12}
+                        ],
+             'yellow': {
+                 'index': [1,3,4],
+                 'sum': 23
+             }
+        }
+    answer = [1,3,5,7,9,2,4,6,8,10]
     question['spec'] = spec
+    question['answer'] = answer
     # jsonify will do for us all the work, returning the
     # previous data structure in JSON
     return jsonify(results=question)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, host='0.0.0.0')
