@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { selectedNumBox } from '../actions/index';
+import { selectedNumBox, answerNum } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import Box from '../components/box';
 import AnswerDetail from './answerDetail';
