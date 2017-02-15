@@ -18,13 +18,15 @@ class Box extends Component {
       };
     const selectedStyle = {
         color: 'black',
+        border:'gray 5px solid',
         fontSize: '100%',
         width: '100px',
         height: '100px',
         textAlign: 'center',
         verticalAlign: 'middle',
         lineHeight: '100px',
-        backgroundColor: '#b3e6ff',
+        backgroundColor: '#f2f2f2',
+        //backgroundColor: '#b3e6ff',
         margin: '10px',
         float: 'left'
     };

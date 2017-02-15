@@ -27,11 +27,10 @@ export default function(state=null, action) {
        case OPERATOR:
          switch(action.payload){
            case 'submit':
-             console.log('click submit');
+             submit(state);
              break;
            case 'clear':
-             console.log('click clear');
-             break;
+             return clear(state);
            default:
              break;
          }
@@ -50,13 +49,34 @@ function updateNum(state, index, num){
       originalMap['num'] =  entry['num'];
       originalMap['type'] = entry['type'];
       originalMap['index'] = entry['index'];
-
       if (entry['index'] == index.toString()){
         originalMap['num'] = num;
       }
       return originalMap;
+    }
+  );
 
+  return newState;
+}
 
+function submit(state){
+  console.log('You submit the answer');
+  console.log(state);
+  console.log('TODO: check the answer~');
+}
+
+function clear(state){
+  const newState = state.map(
+    function(entry){
+      var emptyMap = {};
+      if ((entry['num'] == 'submit') || (entry['num'] == 'clear')){
+        emptyMap['num'] = entry['num'];
+      }else{
+        emptyMap['num'] =  '';
+      }
+      emptyMap['type'] = entry['type'];
+      emptyMap['index'] = entry['index'];
+      return emptyMap;
     }
   );
 

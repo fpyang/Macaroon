@@ -1,6 +1,9 @@
+import axios from 'axios'
+
 export const NUM_SELECTED = 'NUM_SELECTED';
 export const ANS_NUM = 'ANS_NUM';
 export const OPERATOR = 'OPERATOR';
+export const FETCH_QUESTION = 'FETCH_QUESTION';
 
 export function selectedNumBox(num) {
   // selectedNumBox is an ActionCreator, it needs
@@ -32,5 +35,26 @@ export function answerNum(index, num) {
     payload: { 'index': index,
               'num': num
     }
+  }
+}
+
+export function fetchQuestion(qid){
+
+  const url = `http://localhost:5000/question/${qid}`;
+  let question = {};
+
+  const request = axios.get(url);
+                  /*
+                  .then(function (response) {
+                    //console.log('backend response: ');
+                    question = response.data.results;
+                    //console.log(question);
+                  })
+                  .catch(function (error) {
+                    //console.log(error);
+                  });*/
+  return {
+    type: FETCH_QUESTION,
+    payload: request
   }
 }

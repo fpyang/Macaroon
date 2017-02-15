@@ -15,7 +15,7 @@ class AnswerDetail extends Component {
      //margin: '50px',
      border: '1px solid #111',
      background: 'transparent',
-     width: '70px',
+     width: '120px',
      //padding: '5px 35px 5px 5px',
      fontSize: '16px',
      border: '1px solid #ccc',
@@ -32,6 +32,7 @@ class AnswerDetail extends Component {
   const index = this.props.actNum['index'];
   const num = event.target.value;
   this.props.answerNum(index, num);
+  this.state.answer = '';
 }
 
   renderOptions() {
@@ -53,7 +54,8 @@ class AnswerDetail extends Component {
         You click {this.props.actNum.index}
         <div>
         <form className="input-group">
-          <select style={this.selectStyle} onChange={this.handleChange}>
+          <select style={this.selectStyle} onChange={this.handleChange} value={this.state.answer}>
+            <option value=''> select here </option>
             {this.renderOptions()}
           </select>
         </form>

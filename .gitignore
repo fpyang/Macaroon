@@ -1,5 +1,6 @@
 #npm
 node_modules/
+＊.log
 
 #python
 __pycache__/

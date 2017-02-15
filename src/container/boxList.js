@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { selectedNumBox, operator } from '../actions/index';
+import { selectedNumBox, operator, fetchQuestion } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import Box from '../components/box';
 import AnswerDetail from './answerDetail';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 class BoxList extends Component {
 
@@ -16,10 +15,17 @@ class BoxList extends Component {
       default:
         return this.props.selectedNumBox(box);
     }
+  }
 
+  init(){
+    if(this.props.question == null){
+      console.log('init is null');
+      console.log(this.props.fetchQuestion(123));
+    }
   }
 
   renderBoxList() {
+    this.init();
     let currentNum = 0;
     if (this.props.activeNum){
       currentNum = this.props.activeNum.index;
@@ -206,7 +212,10 @@ function fitScreen(cssStyle) {
 function mapDispatchToProps(dispatch){
   // Whenever selectedNumBox is called, the result should be passed
   // to all of our reducers
-  return bindActionCreators({ selectedNumBox: selectedNumBox, operator: operator }, dispatch);
+  return bindActionCreators({ selectedNumBox: selectedNumBox,
+                              operator: operator,
+                              fetchQuestion: fetchQuestion
+                            }, dispatch);
 }
 
 function mapStateToProps(state){
@@ -215,7 +224,8 @@ function mapStateToProps(state){
   return {
     nums: state.nums,
     activeNum: state.activeNum,
-    answer: state.answer
+    answer: state.answer,
+    question: state.question
   };
 }
 
