@@ -59,7 +59,7 @@ class Box extends Component {
         float: 'left'
       };
       return (
-        <div style={emptyBoxStyle}>{this.props.title}</div>
+        <div style={emptyBoxStyle} onClick={this.props.onClickEvent}>{this.props.title}</div>
       );
   }
 

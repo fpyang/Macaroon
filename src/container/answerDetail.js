@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { answerNum } from '../actions/index';
+import { bindActionCreators } from 'redux';
 
 class AnswerDetail extends Component {
 
@@ -8,15 +10,32 @@ class AnswerDetail extends Component {
     this.state = { answer: ''};
 
     this.handleChange = this.handleChange.bind(this);
+
+    this.selectStyle = {
+     //margin: '50px',
+     border: '1px solid #111',
+     background: 'transparent',
+     width: '70px',
+     //padding: '5px 35px 5px 5px',
+     fontSize: '16px',
+     border: '1px solid #ccc',
+     height: '34px',
+     appearance: 'none',
+     //background: 'url(http://www.stackoverflow.com/favicon.ico) 96% / 15% no-repeat #eee'
+
+    };
   }
 
   handleChange(event) {
   this.setState({value: event.target.value});
-  console.log({value: event.target.value});
+  //this.props.answerNum();
+  const index = this.props.actNum['index'];
+  const num = event.target.value;
+  this.props.answerNum(index, num);
 }
 
   renderOptions() {
-    console.log(this.props);
+
     return this.props.answer.map(
         (answer) => {
           return (<option key={answer.answer}>{answer.answer}</option>);
@@ -34,7 +53,7 @@ class AnswerDetail extends Component {
         You click {this.props.actNum.index}
         <div>
         <form className="input-group">
-          <select onChange={this.handleChange} value={this.state.value}>
+          <select style={this.selectStyle} onChange={this.handleChange}>
             {this.renderOptions()}
           </select>
         </form>
@@ -43,9 +62,16 @@ class AnswerDetail extends Component {
     );
   }
 }
+// Anything returned from this function will end up as props
+// on the BoxList container
+function mapDispatchToProps(dispatch){
+  // Whenever selectedNumBox is called, the result should be passed
+  // to all of our reducers
+  return bindActionCreators({ answerNum: answerNum }, dispatch);
+}
+
 
 function mapStateToProps(state){
-  //console.log(state.activeNum);
 
     return {
       actNum : state.activeNum, //current selected question nums
@@ -55,4 +81,4 @@ function mapStateToProps(state){
 
 };
 
-export default connect(mapStateToProps)(AnswerDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(AnswerDetail);

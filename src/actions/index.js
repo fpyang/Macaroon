@@ -1,15 +1,25 @@
 export const NUM_SELECTED = 'NUM_SELECTED';
 export const ANS_NUM = 'ANS_NUM';
+export const OPERATOR = 'OPERATOR';
 
 export function selectedNumBox(num) {
   // selectedNumBox is an ActionCreator, it needs
   // to return an action, an object with a 'type' property
 
- //console.log('the number is been clicked: ', num.num);
-
   return {
     type: NUM_SELECTED,
     payload: num
+  };
+}
+
+export function operator(command) {
+  // operator is an ActionCreator, it needs
+  // to return an action, an object with a 'type' property
+  // There are two commands, i.e., submit and clear
+
+  return {
+    type: OPERATOR,
+    payload: command
   };
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { selectedNumBox, answerNum } from '../actions/index';
+import { selectedNumBox, operator } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import Box from '../components/box';
 import AnswerDetail from './answerDetail';
@@ -7,6 +7,17 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 class BoxList extends Component {
+
+  delegator(box){
+    switch(box.num){
+      case 'submit':
+      case 'clear':
+        return this.props.operator(box.num);
+      default:
+        return this.props.selectedNumBox(box);
+    }
+
+  }
 
   renderBoxList() {
     let currentNum = 0;
@@ -20,7 +31,10 @@ class BoxList extends Component {
             key={box.index}
             index={box.index}
             actNum={currentNum}
-            onClickEvent={() => this.props.selectedNumBox(box)}
+            onClickEvent={() => {
+              this.delegator(box);
+              //this.props.answerNum(box.index, box.num);
+            }}
             title={box.num}
             boxType={box.type}>
           </Box>
@@ -192,7 +206,7 @@ function fitScreen(cssStyle) {
 function mapDispatchToProps(dispatch){
   // Whenever selectedNumBox is called, the result should be passed
   // to all of our reducers
-  return bindActionCreators({ selectedNumBox: selectedNumBox }, dispatch);
+  return bindActionCreators({ selectedNumBox: selectedNumBox, operator: operator }, dispatch);
 }
 
 function mapStateToProps(state){
@@ -200,11 +214,12 @@ function mapStateToProps(state){
   // inside of BoxList
   return {
     nums: state.nums,
-    activeNum: state.activeNum
+    activeNum: state.activeNum,
+    answer: state.answer
   };
 }
 
 // Promote BoxList from a component to a container - it
-// needs to know about this new dispatch method, selectedNumBox.
+// needs to know about this new dispatch method, selectedNumBox & answerNum.
 // Make it available as a prop.
 export default connect(mapStateToProps, mapDispatchToProps)(BoxList);
